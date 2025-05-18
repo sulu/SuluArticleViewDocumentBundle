@@ -26,3 +26,6 @@ Tests/Application/*.local
 # php-cs-fixer
 .php_cs.cache
 php-cs-fixer
+
+# Old Bundle
+SuluArticleBundle
