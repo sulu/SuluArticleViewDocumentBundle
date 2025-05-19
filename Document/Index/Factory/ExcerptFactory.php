@@ -45,7 +45,7 @@ class ExcerptFactory
         CategoryCollectionFactory $categoryCollectionFactory,
         TagCollectionFactory $tagCollectionFactory,
         MediaCollectionFactory $mediaCollectionFactory,
-        SegmentCollectionFactory $segmentCollectionFactory
+        SegmentCollectionFactory $segmentCollectionFactory,
     ) {
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->tagCollectionFactory = $tagCollectionFactory;

@@ -5,9 +5,7 @@
     <services>
         <!-- Document Factory & Repository -->
         <service id="sulu_article_view_document.document.factory.document_factory" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\DocumentFactory">
-            <argument type="collection">
-                <argument key="article">Sulu\Bundle\ArticleViewDocumentBundle\Document\ArticleViewDocument</argument>
-            </argument>
+            <argument>%sulu_article.documents%</argument>
         </service>
 
         <service id="sulu_article_view_document.document.repository.article_view_document_repository" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Repository\ArticleViewDocumentRepository">
@@ -15,10 +13,25 @@
             <argument type="service" id="sulu_article_view_document.document.factory.document_factory" />
         </service>
 
+        <!-- builder -->
+        <service id="sulu_article_view_document.builder.index" class="Sulu\Bundle\ArticleViewDocumentBundle\Builder\ArticleIndexBuilder">
+            <tag name="massive_build.builder" />
+        </service>
+
+        <!-- annotation reader -->
+        <service id="sulu_article_view_document.annotations.cached_reader"
+                 decorates="es.annotations.cached_reader"
+                 class="Sulu\Bundle\ArticleViewDocumentBundle\Elasticsearch\AnnotationReader">
+            <argument type="service" id="sulu_article_view_document.annotations.cached_reader.inner"/>
+            <argument type="string">%sulu_article.view_document.article.class%</argument>
+        </service>
+
         <!-- Factory Services -->
         <service id="sulu_article_view_document.document.index.factory.excerpt_factory" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\Factory\ExcerptFactory">
             <argument type="service" id="sulu_article_view_document.document.index.factory.category_collection_factory" />
             <argument type="service" id="sulu_article_view_document.document.index.factory.tag_collection_factory" />
+            <argument type="service" id="sulu_article_view_document.document.index.factory.media_collection_factory" />
+            <argument type="service" id="sulu_article_view_document.document.index.factory.segment_collection_factory" />
         </service>
 
         <service id="sulu_article_view_document.document.index.factory.seo_factory" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\Factory\SeoFactory" />
@@ -37,7 +50,7 @@
         </service>
 
         <service id="sulu_article_view_document.document.index.factory.media_collection_factory" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\Factory\MediaCollectionFactory">
-            <argument type="service" id="sulu_article_view_document.document.index.factory.media_factory" />
+            <argument type="service" id="sulu_media.media_manager" />
         </service>
 
         <service id="sulu_article_view_document.document.index.factory.segment_collection_factory" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\Factory\SegmentCollectionFactory">
@@ -45,8 +58,14 @@
         </service>
 
         <!-- Resolver Services -->
+        <service id="sulu_article_view_document.webspace_settings_configuration_resolver"
+                 class="Sulu\Bundle\ArticleViewDocumentBundle\DependencyInjection\WebspaceSettingsConfigurationResolver">
+            <argument>%sulu_article.default_main_webspace%</argument>
+            <argument>%sulu_article.default_additional_webspaces%</argument>
+        </service>
         <service id="sulu_article_view_document.document.resolver.webspace_resolver" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Resolver\WebspaceResolver">
             <argument type="service" id="sulu_core.webspace.webspace_manager" />
+            <argument type="service" id="sulu_article_view_document.webspace_settings_configuration_resolver" />
         </service>
 
         <!-- Indexer Services -->
@@ -68,6 +87,8 @@
                 </argument>
             </argument>
             <argument type="service" id="sulu_core.webspace.webspace_manager" />
+            <argument type="service" id="sulu_article.article_repository" />
+            <argument type="service" id="sulu_content.content_manager" />
         </service>
 
         <!-- Live indexer (used in website context) -->

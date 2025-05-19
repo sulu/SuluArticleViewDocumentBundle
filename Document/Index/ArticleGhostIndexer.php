@@ -15,6 +15,7 @@ namespace Sulu\Bundle\ArticleViewDocumentBundle\Document\Index;
 
 use ONGR\ElasticsearchBundle\Service\Manager;
 use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
+use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
 use Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\Factory\ExcerptFactory;
 use Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\Factory\SeoFactory;
 use Sulu\Bundle\ArticleViewDocumentBundle\Document\Resolver\WebspaceResolver;
@@ -24,6 +25,7 @@ use Sulu\Component\Content\Document\LocalizationState;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use Sulu\Content\Application\ContentManager\ContentManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -36,6 +38,16 @@ class ArticleGhostIndexer extends ArticleIndexer
      * @var WebspaceManagerInterface
      */
     protected $webspaceManager;
+
+    /**
+     * @var ArticleRepositoryInterface
+     */
+    protected $articleRepository;
+
+    /**
+     * @var ContentManagerInterface
+     */
+    protected $contentManager;
 
     public function __construct(
         StructureMetadataFactoryInterface $structureMetadataFactory,
@@ -50,6 +62,8 @@ class ArticleGhostIndexer extends ArticleIndexer
         WebspaceResolver $webspaceResolver,
         array $typeConfiguration,
         WebspaceManagerInterface $webspaceManager,
+        ArticleRepositoryInterface $articleRepository,
+        ContentManagerInterface $contentManager,
     ) {
         parent::__construct(
             $structureMetadataFactory,
@@ -66,9 +80,11 @@ class ArticleGhostIndexer extends ArticleIndexer
         );
 
         $this->webspaceManager = $webspaceManager;
+        $this->articleRepository = $articleRepository;
+        $this->contentManager = $contentManager;
     }
 
-    public function index(ArticleDimensionContentInterface $document): void
+    public function index(ArticleDimensionContentInterface $document, string $locale): void
     {
         if ($this->isShadowLocaleEnabled($document)) {
             $this->indexShadow($document);
@@ -76,7 +92,7 @@ class ArticleGhostIndexer extends ArticleIndexer
             return;
         }
 
-        $article = $this->createOrUpdateArticle($document, $document->getLocale());
+        $article = $this->createOrUpdateArticle($document, $locale);
         $this->updateShadows($document);
         $this->createOrUpdateGhosts($document);
         $this->dispatchIndexEvent($document, $article);
@@ -86,6 +102,10 @@ class ArticleGhostIndexer extends ArticleIndexer
     private function createOrUpdateGhosts(ArticleDimensionContentInterface $document): void
     {
         $documentLocale = $document->getLocale();
+        if ($documentLocale === null) {
+            return;
+        }
+
         /** @var Localization $localization */
         foreach ($this->webspaceManager->getAllLocalizations() as $localization) {
             $locale = $localization->getLocale();
@@ -93,19 +113,28 @@ class ArticleGhostIndexer extends ArticleIndexer
                 continue;
             }
 
-            // TODO load ghost document
+            $ghostArticle = $this->articleRepository->findOneBy([
+                'uuid' => $document->getResourceId(),
+            ]);
+
             /** @var ArticleDimensionContentInterface $ghostDocument */
-            $ghostDocument = null;
+            $ghostDocument = $this->contentManager->resolve(
+                $ghostArticle,
+                [
+                    'locale' => $locale,
+                    'stage' => $document->getStage(),
+                ],
+            );
 
             // Only index ghosts
-            if (null !== $ghostDocument->getGhostLocale()) {
+            if (null !== $ghostDocument->getGhostLocale() && $document->getLocale() !== $ghostDocument->getGhostLocale()) {
                 continue;
             }
 
             // Try index the article ghosts.
             $article = $this->createOrUpdateArticle(
-                $ghostDocument,
-                $localization->getLocale(),
+                $document,
+                $locale,
                 LocalizationState::GHOST,
             );
 

@@ -162,7 +162,7 @@ class ArticleIndexer implements IndexerInterface
         );
 
         $article->setTitle($document->getTitle());
-        $article->setRoutePath($document->getRoute()->getSlug());
+        $article->setRoutePath($document->getRoute()?->getSlug());
         $this->setParentPageUuid($document, $article);
         $article->setLastModified($document->getLastModified());
         $article->setAuthored($document->getAuthored());
@@ -206,7 +206,7 @@ class ArticleIndexer implements IndexerInterface
         $article->setLocalizationState(
             new LocalizationStateViewObject(
                 $localizationState,
-                (LocalizationState::LOCALIZED === $localizationState) ? null : $document->getLocale(),
+                (LocalizationState::LOCALIZED === $localizationState) ? null : $document->getGhostLocale(),
             ),
         );
 
@@ -228,7 +228,7 @@ class ArticleIndexer implements IndexerInterface
                 'hideInSitemap' => $document->getSeoHideInSitemap(),
             ],
         ];
-        $article->setExcerpt($this->excerptFactory->create($extensions['excerpt'], $document->getLocale()));
+        $article->setExcerpt($this->excerptFactory->create($extensions['excerpt'], $locale));
         $article->setSeo($this->seoFactory->create($extensions['seo']));
 
         if ($structureMetadata->hasPropertyWithTagName('sulu.teaser.description')) {
@@ -260,7 +260,7 @@ class ArticleIndexer implements IndexerInterface
         $contentFields = [];
         foreach ($structure->getProperties() as $property) {
             if (\method_exists($property, 'getComponents') && \count($property->getComponents()) > 0) {
-                $blocks = $document->getTemplateData()[$property->getName()];
+                $blocks = $document->getTemplateData()[$property->getName()] ?? [];
                 if (isset($blocks['hotspots'])) {
                     $blocks = $blocks['hotspots'];
                 }
@@ -375,7 +375,7 @@ class ArticleIndexer implements IndexerInterface
      */
     private function setParentPageUuid(ArticleDimensionContentInterface $document, ArticleViewDocumentInterface $article): void
     {
-        $parentPageUuid = $document->getRoute()->getParentRoute()?->getResourceId();
+        $parentPageUuid = $document->getRoute()?->getParentRoute()?->getResourceId();
         if (!$parentPageUuid) {
             return;
         }
@@ -405,7 +405,7 @@ class ArticleIndexer implements IndexerInterface
     {
         // overwrite removed locale with properties from original locale
         $article = $this->createOrUpdateArticle($document, $locale);
-        $article->setLocalizationState(new LocalizationStateViewObject(LocalizationState::GHOST, $document->getLocale()));
+        $article->setLocalizationState(new LocalizationStateViewObject(LocalizationState::GHOST, $locale));
 
         $repository = $this->manager->getRepository($this->documentFactory->getClass('article'));
         $search = $repository->createSearch();
@@ -473,7 +473,7 @@ class ArticleIndexer implements IndexerInterface
         return false;
     }
 
-    public function index(ArticleDimensionContentInterface $document): void
+    public function index(ArticleDimensionContentInterface $document, string $locale): void
     {
         if ($this->isShadowLocaleEnabled($document)) {
             $this->indexShadow($document);
@@ -481,7 +481,7 @@ class ArticleIndexer implements IndexerInterface
             return;
         }
 
-        $article = $this->createOrUpdateArticle($document, $document->getLocale());
+        $article = $this->createOrUpdateArticle($document, $locale);
 
         $this->dispatchIndexEvent($document, $article);
         $this->manager->persist($article);
@@ -494,7 +494,7 @@ class ArticleIndexer implements IndexerInterface
         // TODO load shadowed version of document
         /** @var ArticleDimensionContentInterface $shadowDocument */
         $shadowDocument = null;
-        $shadowLocale = 'en';
+        $shadowLocale = $document->getShadowLocale();
 
         $article = $this->createOrUpdateArticle($shadowDocument, $shadowLocale, LocalizationState::SHADOW);
         $this->dispatchIndexEvent($shadowDocument, $article);
@@ -507,7 +507,7 @@ class ArticleIndexer implements IndexerInterface
             return;
         }
 
-        foreach ($document->getShadowLocales() as $shadowLocale) {
+        foreach ($document->getShadowLocales() ?? [] as $shadowLocale) {
             try {
                 /** @var ArticleDimensionContentInterface $shadowDocument */
                 // TODO load shadowed version of document

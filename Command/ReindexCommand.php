@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Sulu.
  *
@@ -44,7 +46,7 @@ class ReindexCommand extends Command
         private EntityManagerInterface $entityManager,
         private IndexerInterface $draftIndexer,
         private IndexerInterface $liveIndexer,
-        private string $suluContext
+        private string $suluContext,
     ) {
         parent::__construct(static::$defaultName);
     }
@@ -66,7 +68,7 @@ class ReindexCommand extends Command
             : $this->draftIndexer;
 
         $output->writeln(
-            \sprintf('Reindex articles for the <comment>`%s`</comment> context' . \PHP_EOL, $this->suluContext)
+            \sprintf('Reindex articles for the <comment>`%s`</comment> context' . \PHP_EOL, $this->suluContext),
         );
 
         if (!$this->dropIndex($indexer, $input, $output)) {
@@ -92,8 +94,8 @@ class ReindexCommand extends Command
             \sprintf(
                 '<info>Index rebuild completed (</info>%ss %s</info><info>)</info>',
                 \number_format(\microtime(true) - $startTime, 2),
-                $this->humanBytes(\memory_get_peak_usage())
-            )
+                $this->humanBytes(\memory_get_peak_usage()),
+            ),
         );
 
         return 0;
@@ -110,7 +112,7 @@ class ReindexCommand extends Command
 
         if (!$input->getOption('no-interaction')) {
             $output->writeln(
-                '<comment>ATTENTION</comment>: This operation drops and recreates the whole index and deletes the complete data.'
+                '<comment>ATTENTION</comment>: This operation drops and recreates the whole index and deletes the complete data.',
             );
             $output->writeln('');
 
@@ -130,8 +132,8 @@ class ReindexCommand extends Command
         $output->writeln(
             \sprintf(
                 'Dropped and recreated index for the <comment>`%s`</comment> context' . \PHP_EOL,
-                $this->suluContext
-            )
+                $this->suluContext,
+            ),
         );
 
         return true;
@@ -170,7 +172,7 @@ class ReindexCommand extends Command
 
         /** @var ArticleDimensionContentInterface $document */
         foreach ($documents as $document) {
-            $indexer->index($document);
+            $indexer->index($document, $locale);
             $progressBar->advance();
 
             ++$count;
@@ -194,17 +196,23 @@ class ReindexCommand extends Command
      */
     protected function getDocuments(string $locale): iterable
     {
-        $stage = $this->suluContext === SuluKernel::CONTEXT_WEBSITE
+        $stage = SuluKernel::CONTEXT_WEBSITE === $this->suluContext
             ? DimensionContentInterface::STAGE_LIVE
             : DimensionContentInterface::STAGE_DRAFT;
 
         foreach ($this->articleRepository->findIdentifiersBy() as $articleId) {
-            $article = $this->articleRepository->findOneBy(['uuid' => $articleId]);
+            $article = $this->articleRepository->findOneBy($articleId);
 
-            yield $this->contentManager->resolve($article, [
+            $resolved = $this->contentManager->resolve($article, [
                 'stage' => $stage,
                 'locale' => $locale,
             ]);
+
+            if ($resolved->getGhostLocale() !== $locale) {
+                continue;
+            }
+
+            yield $resolved;
         }
     }
 
@@ -221,8 +229,8 @@ class ReindexCommand extends Command
     protected function humanBytes(int $bytes, int $dec = 2): string
     {
         $size = ['b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        $factor = (int) \floor((\strlen($bytes) - 1) / 3);
+        $factor = (int) \floor((\strlen((string) $bytes) - 1) / 3);
 
-        return \sprintf("%.{$dec}f", $bytes / \pow(1024, $factor)) . $size[$factor];
+        return \sprintf("%.{$dec}f", $bytes / 1024 ** $factor) . $size[$factor];
     }
 }

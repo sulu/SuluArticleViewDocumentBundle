@@ -30,7 +30,7 @@ interface IndexerInterface
     /**
      * Indexes given document.
      */
-    public function index(ArticleDimensionContentInterface $document): void;
+    public function index(ArticleDimensionContentInterface $document, string $locale): void;
 
     /**
      * Removes document from index.

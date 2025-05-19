@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Sulu.
  *
@@ -11,9 +13,11 @@
 
 namespace Sulu\Bundle\ArticleViewDocumentBundle\Document;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use ONGR\ElasticsearchBundle\Annotation\Embedded;
 use ONGR\ElasticsearchBundle\Annotation\Id;
 use ONGR\ElasticsearchBundle\Annotation\Property;
+use ONGR\ElasticsearchBundle\Result\ObjectIterator;
 
 /**
  * Indexable document for articles.
@@ -510,7 +514,7 @@ class ArticleViewDocument implements ArticleViewDocumentInterface
         return $this;
     }
 
-    public function getLastModifiedOrAuthored(): \DateTime
+    public function getLastModifiedOrAuthored(): ?\DateTime
     {
         return $this->lastModified ?? $this->authored;
     }
@@ -588,8 +592,15 @@ class ArticleViewDocument implements ArticleViewDocumentInterface
         return $this->published;
     }
 
-    public function setPublished(?\DateTime $published = null)
+    public function setPublished(?\DateTimeInterface $published = null)
     {
+        if ($published instanceof \DateTime) {
+            $published = clone $published;
+        }
+        if ($published instanceof \DateTimeImmutable) {
+            $published = new \DateTime($published->format('Y-m-d H:i:s'));
+        }
+
         $this->published = $published;
 
         return $this;
@@ -657,7 +668,12 @@ class ArticleViewDocument implements ArticleViewDocumentInterface
 
     public function getPages()
     {
-        return $this->pages;
+        $pages = $this->pages;
+        if ($pages instanceof ObjectIterator) {
+            $pages = $pages->toArray();
+        }
+
+        return new ArrayCollection($pages ?? []);
     }
 
     public function setPages($pages)
