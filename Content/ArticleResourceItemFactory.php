@@ -60,7 +60,7 @@ class ArticleResourceItemFactory
     {
         return $this->proxyFactory->createProxy(
             ArticleDimensionContentInterface::class,
-            function (
+            function(
                 &$wrappedObject,
                 LazyLoadingInterface $proxy,
                 $method,

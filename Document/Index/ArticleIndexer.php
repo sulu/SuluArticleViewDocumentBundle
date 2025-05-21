@@ -18,6 +18,7 @@ use ONGR\ElasticsearchDSL\Query\Compound\BoolQuery;
 use ONGR\ElasticsearchDSL\Query\MatchAllQuery;
 use ONGR\ElasticsearchDSL\Query\TermLevel\TermQuery;
 use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
+use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
 use Sulu\Bundle\ArticleViewDocumentBundle\Document\ArticleViewDocumentInterface;
 use Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\Factory\ExcerptFactory;
 use Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\Factory\SeoFactory;
@@ -34,6 +35,7 @@ use Sulu\Component\Content\Document\LocalizationState;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
 use Sulu\Component\Content\Metadata\PropertyMetadata;
 use Sulu\Component\Content\Metadata\StructureMetadata;
+use Sulu\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Content\Domain\Model\WorkflowInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -101,6 +103,16 @@ class ArticleIndexer implements IndexerInterface
      */
     protected $typeConfiguration;
 
+    /**
+     * @var ArticleRepositoryInterface
+     */
+    protected $articleRepository;
+
+    /**
+     * @var ContentManagerInterface
+     */
+    protected $contentManager;
+
     public function __construct(
         StructureMetadataFactoryInterface $structureMetadataFactory,
         UserManager $userManager,
@@ -112,6 +124,8 @@ class ArticleIndexer implements IndexerInterface
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator,
         WebspaceResolver $webspaceResolver,
+        ArticleRepositoryInterface $articleRepository,
+        ContentManagerInterface $contentManager,
         array $typeConfiguration,
     ) {
         $this->structureMetadataFactory = $structureMetadataFactory;
@@ -124,6 +138,8 @@ class ArticleIndexer implements IndexerInterface
         $this->eventDispatcher = $eventDispatcher;
         $this->translator = $translator;
         $this->webspaceResolver = $webspaceResolver;
+        $this->articleRepository = $articleRepository;
+        $this->contentManager = $contentManager;
         $this->typeConfiguration = $typeConfiguration;
     }
 
@@ -162,7 +178,7 @@ class ArticleIndexer implements IndexerInterface
         );
 
         $article->setTitle($document->getTitle());
-        $article->setRoutePath($document->getRoute()?->getSlug());
+        $article->setRoutePath($document->getTemplateData()['url']);
         $this->setParentPageUuid($document, $article);
         $article->setLastModified($document->getLastModified());
         $article->setAuthored($document->getAuthored());
@@ -200,8 +216,11 @@ class ArticleIndexer implements IndexerInterface
         }
         $article->setType($this->getType($structureMetadata));
         $article->setStructureType($document->getTemplateKey());
-        $article->setPublished($document->getWorkflowPublished());
-        $article->setPublishedState(WorkflowInterface::WORKFLOW_PLACE_PUBLISHED === $document->getWorkflowPlace());
+
+        $isPublished = $this->isPublished($document, $localizationState);
+
+        $article->setPublished($isPublished ? $document->getWorkflowPublished() : null);
+        $article->setPublishedState($isPublished);
         $article->setTypeTranslation($this->getTypeTranslation($this->getType($structureMetadata)));
         $article->setLocalizationState(
             new LocalizationStateViewObject(
@@ -212,17 +231,17 @@ class ArticleIndexer implements IndexerInterface
 
         $extensions = [
             'excerpt' => [
-                'title' => $document->getExcerptTitle(),
-                'description' => $document->getExcerptDescription(),
-                'more' => $document->getExcerptMore(),
+                'title' => $document->getExcerptTitle() ?? '',
+                'description' => $document->getExcerptDescription() ?? '',
+                'more' => $document->getExcerptMore() ?? '',
                 'categories' => $document->getExcerptCategoryIds(),
                 'tags' => $document->getExcerptTagNames(),
             ],
             'seo' => [
-                'title' => $document->getSeoTitle(),
-                'description' => $document->getSeoDescription(),
-                'keywords' => $document->getSeoKeywords(),
-                'canonicalUrl' => $document->getSeoCanonicalUrl(),
+                'title' => $document->getSeoTitle() ?? '',
+                'description' => $document->getSeoDescription() ?? '',
+                'keywords' => $document->getSeoKeywords() ?? '',
+                'canonicalUrl' => $document->getSeoCanonicalUrl() ?? '',
                 'noIndex' => $document->getSeoNoIndex(),
                 'noFollow' => $document->getSeoNoFollow(),
                 'hideInSitemap' => $document->getSeoHideInSitemap(),
@@ -286,7 +305,7 @@ class ArticleIndexer implements IndexerInterface
             /** @var PropertyMetadata $componentProperty */
             foreach ($component->getChildren() as $componentProperty) {
                 if (\method_exists($componentProperty, 'getComponents') && \count($componentProperty->getComponents()) > 0) {
-                    $filteredBlocks = \array_filter($blocks, function ($block) use ($component) {
+                    $filteredBlocks = \array_filter($blocks, function($block) use ($component) {
                         return $block['type'] === $component->getName();
                     });
 
@@ -468,9 +487,17 @@ class ArticleIndexer implements IndexerInterface
 
     protected function isShadowLocaleEnabled(ArticleDimensionContentInterface $document): bool
     {
-        // TODO implement shadow locale check
+        return null !== $document->getShadowLocale();
+    }
 
-        return false;
+    protected function isPublished(ArticleDimensionContentInterface $document, string $localizationState): bool
+    {
+        if (LocalizationState::GHOST === $localizationState) {
+            return false;
+        }
+
+        return WorkflowInterface::WORKFLOW_PLACE_PUBLISHED === $document->getWorkflowPlace()
+            || ArticleDimensionContentInterface::STAGE_LIVE === $document->getStage();
     }
 
     public function index(ArticleDimensionContentInterface $document, string $locale): void
@@ -491,12 +518,18 @@ class ArticleIndexer implements IndexerInterface
 
     protected function indexShadow(ArticleDimensionContentInterface $document): void
     {
-        // TODO load shadowed version of document
-        /** @var ArticleDimensionContentInterface $shadowDocument */
-        $shadowDocument = null;
         $shadowLocale = $document->getShadowLocale();
+        if (null === $shadowLocale) {
+            return;
+        }
 
-        $article = $this->createOrUpdateArticle($shadowDocument, $shadowLocale, LocalizationState::SHADOW);
+        $shadowDocument = $this->findArticleDimension(
+            $document->getResourceId(),
+            $shadowLocale,
+            $document->getStage(),
+        );
+
+        $article = $this->createOrUpdateArticle($shadowDocument, $document->getLocale(), LocalizationState::SHADOW);
         $this->dispatchIndexEvent($shadowDocument, $article);
         $this->manager->persist($article);
     }
@@ -509,9 +542,11 @@ class ArticleIndexer implements IndexerInterface
 
         foreach ($document->getShadowLocales() ?? [] as $shadowLocale) {
             try {
-                /** @var ArticleDimensionContentInterface $shadowDocument */
-                // TODO load shadowed version of document
-                $shadowDocument = null;
+                $shadowDocument = $this->findArticleDimension(
+                    $document->getResourceId(),
+                    $shadowLocale,
+                    $document->getStage(),
+                );
 
                 // update shadow only if original document exists
                 if (!$this->findViewDocument($shadowDocument, $document->getLocale())) {
@@ -542,5 +577,23 @@ class ArticleIndexer implements IndexerInterface
         }
 
         $this->manager->createIndex();
+    }
+
+    protected function findArticleDimension(string $uuid, string $locale, string $stage = 'draft'): ArticleDimensionContentInterface
+    {
+        $article = $this->articleRepository->findOneBy([
+            'uuid' => $uuid,
+        ]);
+
+        /** @var ArticleDimensionContentInterface $dimension */
+        $dimension = $this->contentManager->resolve(
+            $article,
+            [
+                'locale' => $locale,
+                'stage' => $stage,
+            ],
+        );
+
+        return $dimension;
     }
 }

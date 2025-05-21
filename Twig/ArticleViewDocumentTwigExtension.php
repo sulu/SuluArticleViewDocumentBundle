@@ -132,9 +132,9 @@ class ArticleViewDocumentTwigExtension extends AbstractExtension
     /**
      * Loads similar articles with given parameters.
      *
-     * @throws ArticleInRequestNotFoundException
-     *
      * @return ArticleResourceItem[]
+     *
+     * @throws ArticleInRequestNotFoundException
      */
     public function loadSimilar(
         int $limit = ArticleViewDocumentRepository::DEFAULT_LIMIT,

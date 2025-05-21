@@ -543,8 +543,15 @@ class ArticleViewDocument implements ArticleViewDocumentInterface
         return $this->authored;
     }
 
-    public function setAuthored(?\DateTime $authored = null)
+    public function setAuthored(?\DateTimeInterface $authored = null)
     {
+        if ($authored instanceof \DateTime) {
+            $authored = clone $authored;
+        }
+        if ($authored instanceof \DateTimeImmutable) {
+            $authored = new \DateTime($authored->format('Y-m-d H:i:s'));
+        }
+
         $this->authored = $authored;
         $this->updateLastModifiedOrAuthored();
 

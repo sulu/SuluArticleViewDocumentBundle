@@ -39,16 +39,6 @@ class ArticleGhostIndexer extends ArticleIndexer
      */
     protected $webspaceManager;
 
-    /**
-     * @var ArticleRepositoryInterface
-     */
-    protected $articleRepository;
-
-    /**
-     * @var ContentManagerInterface
-     */
-    protected $contentManager;
-
     public function __construct(
         StructureMetadataFactoryInterface $structureMetadataFactory,
         UserManager $userManager,
@@ -60,10 +50,10 @@ class ArticleGhostIndexer extends ArticleIndexer
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator,
         WebspaceResolver $webspaceResolver,
-        array $typeConfiguration,
-        WebspaceManagerInterface $webspaceManager,
         ArticleRepositoryInterface $articleRepository,
         ContentManagerInterface $contentManager,
+        array $typeConfiguration,
+        WebspaceManagerInterface $webspaceManager,
     ) {
         parent::__construct(
             $structureMetadataFactory,
@@ -76,12 +66,12 @@ class ArticleGhostIndexer extends ArticleIndexer
             $eventDispatcher,
             $translator,
             $webspaceResolver,
+            $articleRepository,
+            $contentManager,
             $typeConfiguration,
         );
 
         $this->webspaceManager = $webspaceManager;
-        $this->articleRepository = $articleRepository;
-        $this->contentManager = $contentManager;
     }
 
     public function index(ArticleDimensionContentInterface $document, string $locale): void
@@ -102,28 +92,21 @@ class ArticleGhostIndexer extends ArticleIndexer
     private function createOrUpdateGhosts(ArticleDimensionContentInterface $document): void
     {
         $documentLocale = $document->getLocale();
-        if ($documentLocale === null) {
+        if (null === $documentLocale) {
             return;
         }
 
         /** @var Localization $localization */
         foreach ($this->webspaceManager->getAllLocalizations() as $localization) {
             $locale = $localization->getLocale();
-            if ($documentLocale === $locale) {
+            if ($documentLocale === $locale || \in_array($locale, $document->getAvailableLocales(), true)) {
                 continue;
             }
 
-            $ghostArticle = $this->articleRepository->findOneBy([
-                'uuid' => $document->getResourceId(),
-            ]);
-
-            /** @var ArticleDimensionContentInterface $ghostDocument */
-            $ghostDocument = $this->contentManager->resolve(
-                $ghostArticle,
-                [
-                    'locale' => $locale,
-                    'stage' => $document->getStage(),
-                ],
+            $ghostDocument = $this->findArticleDimension(
+                $document->getResourceId(),
+                $locale,
+                $document->getStage(),
             );
 
             // Only index ghosts

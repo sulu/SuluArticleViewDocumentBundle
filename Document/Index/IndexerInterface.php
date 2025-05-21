@@ -35,7 +35,7 @@ interface IndexerInterface
     /**
      * Removes document from index.
      */
-    public function remove(ArticleDimensionContentInterface $document/*, ?string $locale = null*/): void;
+    public function remove(ArticleDimensionContentInterface $document/* , ?string $locale = null */): void;
 
     /**
      * Reindexes the document in given locale with the data of the originalLocale.

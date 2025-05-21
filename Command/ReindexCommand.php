@@ -208,7 +208,7 @@ class ReindexCommand extends Command
                 'locale' => $locale,
             ]);
 
-            if ($resolved->getGhostLocale() !== $locale) {
+            if (!\in_array($locale, $resolved->getAvailableLocales(), true)) {
                 continue;
             }
 

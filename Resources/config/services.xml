@@ -81,14 +81,14 @@
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="translator" />
             <argument type="service" id="sulu_article_view_document.document.resolver.webspace_resolver" />
+            <argument type="service" id="sulu_article.article_repository" />
+            <argument type="service" id="sulu_content.content_manager" />
             <argument type="collection">
                 <argument key="default">
                     <argument key="translation_key">sulu_article.type.default</argument>
                 </argument>
             </argument>
             <argument type="service" id="sulu_core.webspace.webspace_manager" />
-            <argument type="service" id="sulu_article.article_repository" />
-            <argument type="service" id="sulu_content.content_manager" />
         </service>
 
         <!-- Live indexer (used in website context) -->
@@ -103,6 +103,8 @@
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="translator" />
             <argument type="service" id="sulu_article_view_document.document.resolver.webspace_resolver" />
+            <argument type="service" id="sulu_article.article_repository" />
+            <argument type="service" id="sulu_content.content_manager" />
             <argument type="collection">
                 <argument key="default">
                     <argument key="translation_key">sulu_article.type.default</argument>

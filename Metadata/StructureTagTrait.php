@@ -20,8 +20,6 @@ trait StructureTagTrait
 {
     /**
      * Returns type for given structure-metadata.
-     *
-     * @return mixed
      */
     protected function getType(StructureMetadata $metadata, ?string $default = 'default')
     {
@@ -30,10 +28,6 @@ trait StructureTagTrait
 
     /**
      * Returns attribute for given tag in metadata.
-     *
-     * @param mixed $default
-     *
-     * @return mixed
      */
     private function getTagAttribute(StructureMetadata $metadata, string $tag, string $attribute, $default)
     {
