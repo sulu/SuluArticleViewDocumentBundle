@@ -22,7 +22,6 @@ use ONGR\ElasticsearchDSL\Query\TermLevel\TermQuery;
 use ONGR\ElasticsearchDSL\Search;
 use ONGR\ElasticsearchDSL\Sort\FieldSort;
 use Sulu\Bundle\ArticleViewDocumentBundle\Metadata\ArticleViewDocumentIdTrait;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
 
 /**
  * Find article view documents in elasticsearch index.
@@ -37,11 +36,6 @@ class ArticleViewDocumentRepository
      * @var Manager
      */
     protected $searchManager;
-
-    /**
-     * @var DocumentManagerInterface
-     */
-    protected $documentManager;
 
     /**
      * @var string

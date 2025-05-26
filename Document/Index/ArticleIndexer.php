@@ -29,7 +29,6 @@ use Sulu\Bundle\ArticleViewDocumentBundle\Metadata\ArticleViewDocumentIdTrait;
 use Sulu\Bundle\ArticleViewDocumentBundle\Metadata\StructureTagTrait;
 use Sulu\Bundle\ContactBundle\Entity\Contact;
 use Sulu\Bundle\ContactBundle\Entity\ContactRepository;
-use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Bundle\SecurityBundle\UserManager\UserManager;
 use Sulu\Component\Content\Document\LocalizationState;
 use Sulu\Component\Content\Metadata\Factory\StructureMetadataFactoryInterface;
@@ -190,30 +189,19 @@ class ArticleIndexer implements IndexerInterface
             }
         }
 
-        // TODO find the correct data for changer/creator
-        $changer = null;
-        /** @var \DateTime $changed */
-        $changed = null;
-        $creator = null;
-        /** @var \DateTime $created */
-        $created = null;
+        $changer = $document->getChanger();
+        $changed = $document->getChanged();
+        $creator = $document->getCreator();
+        $created = $document->getCreated();
 
         $article->setChanged($changed);
-        if ($changer && $changer = $this->userManager->getUserById($changer)) {
-            $article->setChangerFullName($changer->getFullName());
+        $article->setChangerFullName($changer?->getFullName());
+        $article->setChangerContactId($changer?->getContact()->getId());
 
-            if ($changer instanceof User) {
-                $article->setChangerContactId($changer->getContact()->getId());
-            }
-        }
         $article->setCreated($created);
-        if ($creator && $creator = $this->userManager->getUserById($creator)) {
-            $article->setCreatorFullName($creator->getFullName());
+        $article->setCreatorFullName($creator?->getFullName());
+        $article->setCreatorContactId($creator?->getContact()->getId());
 
-            if ($creator instanceof User) {
-                $article->setCreatorContactId($creator->getContact()->getId());
-            }
-        }
         $article->setType($this->getType($structureMetadata));
         $article->setStructureType($document->getTemplateKey());
 
@@ -305,7 +293,7 @@ class ArticleIndexer implements IndexerInterface
             /** @var PropertyMetadata $componentProperty */
             foreach ($component->getChildren() as $componentProperty) {
                 if (\method_exists($componentProperty, 'getComponents') && \count($componentProperty->getComponents()) > 0) {
-                    $filteredBlocks = \array_filter($blocks, function($block) use ($component) {
+                    $filteredBlocks = \array_filter($blocks, function ($block) use ($component) {
                         return $block['type'] === $component->getName();
                     });
 

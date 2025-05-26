@@ -148,8 +148,8 @@ class ReindexCommand extends Command
             return;
         }
 
-        $output->writeln(\sprintf('Cleared index for the <comment>`%s`</comment> context', $this->suluContext));
         $indexer->clear();
+        $output->writeln(\sprintf('Cleared index for the <comment>`%s`</comment> context', $this->suluContext));
     }
 
     /**

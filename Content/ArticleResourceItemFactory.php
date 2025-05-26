@@ -17,7 +17,6 @@ use ProxyManager\Factory\LazyLoadingValueHolderFactory;
 use ProxyManager\Proxy\LazyLoadingInterface;
 use Sulu\Article\Domain\Model\ArticleDimensionContentInterface;
 use Sulu\Bundle\ArticleViewDocumentBundle\Document\ArticleViewDocumentInterface;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
 
 /**
  * Creates article resource items for given article view document.
@@ -25,20 +24,13 @@ use Sulu\Component\DocumentManager\DocumentManagerInterface;
 class ArticleResourceItemFactory
 {
     /**
-     * @var DocumentManagerInterface
-     */
-    protected $documentManager;
-
-    /**
      * @var LazyLoadingValueHolderFactory
      */
     protected $proxyFactory;
 
     public function __construct(
-        DocumentManagerInterface $documentManager,
         LazyLoadingValueHolderFactory $proxyFactory,
     ) {
-        $this->documentManager = $documentManager;
         $this->proxyFactory = $proxyFactory;
     }
 
