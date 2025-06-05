@@ -1,0 +1,746 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$contentRichEntity of method Sulu\\\\Content\\\\Application\\\\ContentManager\\\\ContentManagerInterface\\:\\:resolve\\(\\) expects Sulu\\\\Content\\\\Domain\\\\Model\\\\ContentRichEntityInterface\\<Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleDimensionContentInterface\\>, Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleInterface\\|null given\\.$#"
+			count: 1
+			path: Command/ReindexCommand.php
+
+		-
+			message: "#^Parameter \\#1 \\$filters of method Sulu\\\\Article\\\\Domain\\\\Repository\\\\ArticleRepositoryInterface\\:\\:findOneBy\\(\\) expects array\\{uuid\\?\\: string, uuids\\?\\: array\\<string\\>, locale\\?\\: string, stage\\?\\: string\\}, string given\\.$#"
+			count: 1
+			path: Command/ReindexCommand.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, array\\<string\\>\\|null given\\.$#"
+			count: 1
+			path: Command/ReindexCommand.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Content\\\\ArticleResourceItem\\:\\:getAuthorFullName\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Content/ArticleResourceItem.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Content\\\\ArticleResourceItem\\:\\:getAuthorId\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Content/ArticleResourceItem.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Content\\\\ArticleResourceItem\\:\\:getResource\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Content/ArticleResourceItem.php
+
+		-
+			message: "#^Parameter \\#2 \\$initializer of method ProxyManager\\\\Factory\\\\LazyLoadingValueHolderFactory\\:\\:createProxy\\(\\) expects Closure\\(Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleDimensionContentInterface\\|null\\=, ProxyManager\\\\Proxy\\\\ValueHolderInterface\\<Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleDimensionContentInterface\\>&ProxyManager\\\\Proxy\\\\VirtualProxyInterface&Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleDimensionContentInterface\\=, string\\=, array\\<string, mixed\\>\\=, Closure\\|null\\=\\)\\: bool, Closure\\(mixed, ProxyManager\\\\Proxy\\\\LazyLoadingInterface, mixed, array, mixed\\)\\: true given\\.$#"
+			count: 1
+			path: Content/ArticleResourceItemFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$resource of class Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Content\\\\ArticleResourceItem constructor expects Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleDimensionContentInterface, object given\\.$#"
+			count: 1
+			path: Content/ArticleResourceItemFactory.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			count: 1
+			path: DependencyInjection/Configuration.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\DependencyInjection\\\\WebspaceSettingsConfigurationResolver\\:\\:__construct\\(\\) has parameter \\$defaultAdditionalWebspaces with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: DependencyInjection/WebspaceSettingsConfigurationResolver.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\DependencyInjection\\\\WebspaceSettingsConfigurationResolver\\:\\:__construct\\(\\) has parameter \\$defaultMainWebspace with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: DependencyInjection/WebspaceSettingsConfigurationResolver.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\DependencyInjection\\\\WebspaceSettingsConfigurationResolver\\:\\:getDefaultAdditionalWebspacesForLocale\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: DependencyInjection/WebspaceSettingsConfigurationResolver.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\DependencyInjection\\\\WebspaceSettingsConfigurationResolver\\:\\:\\$defaultAdditionalWebspaces type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: DependencyInjection/WebspaceSettingsConfigurationResolver.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\DependencyInjection\\\\WebspaceSettingsConfigurationResolver\\:\\:\\$defaultMainWebspace type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: DependencyInjection/WebspaceSettingsConfigurationResolver.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticlePageViewObject\\:\\:\\$content with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticlePageViewObject.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticlePageViewObject\\:\\:\\$view with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticlePageViewObject.php
+
+		-
+			message: "#^Instanceof between array\\<Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticlePageViewObject\\> and ONGR\\\\ElasticsearchBundle\\\\Result\\\\ObjectIterator will always evaluate to false\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:getContent\\(\\) return type with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:getPages\\(\\) should return array\\<Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticlePageViewObject\\> but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticlePageViewObject\\>\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:getView\\(\\) return type with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:setContent\\(\\) has parameter \\$content with generic class ArrayObject but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:setContent\\(\\) return type with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:setContent\\(\\) should return ArrayObject but returns \\$this\\(Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\)\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:setPages\\(\\) has parameter \\$pages with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but does not specify its types\\: TKey, T$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:setView\\(\\) has parameter \\$view with generic class ArrayObject but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:\\$additionalWebspaces \\(array\\<string\\>\\) does not accept array\\<string\\>\\|null\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:\\$authored \\(DateTime\\) does not accept DateTime\\|null\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:\\$content with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:\\$mainWebspace \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:\\$pages \\(array\\<Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticlePageViewObject\\>\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:\\$published \\(DateTime\\) does not accept DateTime\\|null\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:\\$uuid \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocument\\:\\:\\$view with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Variable \\$pages on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: Document/ArticleViewDocument.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:getContent\\(\\) return type with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocumentInterface.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:getView\\(\\) return type with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocumentInterface.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setContent\\(\\) has parameter \\$content with generic class ArrayObject but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocumentInterface.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setContent\\(\\) return type with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocumentInterface.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setPages\\(\\) has parameter \\$pages with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but does not specify its types\\: TKey, T$#"
+			count: 1
+			path: Document/ArticleViewDocumentInterface.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setView\\(\\) has parameter \\$view with generic class ArrayObject but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: Document/ArticleViewDocumentInterface.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleGhostIndexer\\:\\:__construct\\(\\) has parameter \\$typeConfiguration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/ArticleGhostIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$document of method ONGR\\\\ElasticsearchBundle\\\\Service\\\\Manager\\:\\:persist\\(\\) expects object, Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleGhostIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$uuid of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:findArticleDimension\\(\\) expects string, int\\|string given\\.$#"
+			count: 1
+			path: Document/Index/ArticleGhostIndexer.php
+
+		-
+			message: "#^Parameter \\#2 \\$article of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:dispatchIndexEvent\\(\\) expects Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface, Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleGhostIndexer.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, array\\<string\\>\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleGhostIndexer.php
+
+		-
+			message: "#^Cannot access offset 'hotspots' on mixed\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Cannot call method getPropertyByTagName\\(\\) on Sulu\\\\Component\\\\Content\\\\Metadata\\\\StructureMetadata\\|null\\.$#"
+			count: 2
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Cannot call method hasPropertyWithTagName\\(\\) on Sulu\\\\Component\\\\Content\\\\Metadata\\\\StructureMetadata\\|null\\.$#"
+			count: 2
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Cannot call method setLocalizationState\\(\\) on Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\|null\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Left side of && is always false\\.$#"
+			count: 2
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:__construct\\(\\) has parameter \\$typeConfiguration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getBlockContentFieldsRecursive\\(\\) has parameter \\$blockMetaData with no type specified\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getBlockContentFieldsRecursive\\(\\) has parameter \\$blocks with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getBlockContentFieldsRecursive\\(\\) has parameter \\$tag with no type specified\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getContentFields\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getTagAttribute\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getTagAttribute\\(\\) has parameter \\$default with no type specified\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getType\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getViewDocumentIds\\(\\) has parameter \\$uuids with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getViewDocumentIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$authorId of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setAuthorId\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$authored of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setAuthored\\(\\) expects DateTime\\|null, DateTimeImmutable\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$blocks of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getBlockContentFieldsRecursive\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$changerContactId of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setChangerContactId\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$contentData of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setContentData\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$contentRichEntity of method Sulu\\\\Content\\\\Application\\\\ContentManager\\\\ContentManagerInterface\\:\\:resolve\\(\\) expects Sulu\\\\Content\\\\Domain\\\\Model\\\\ContentRichEntityInterface\\<Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleDimensionContentInterface\\>, Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleInterface\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$creatorContactId of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setCreatorContactId\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$document of method ONGR\\\\ElasticsearchBundle\\\\Service\\\\Manager\\:\\:persist\\(\\) expects object, Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\|null given\\.$#"
+			count: 3
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$document of method ONGR\\\\ElasticsearchBundle\\\\Service\\\\Manager\\:\\:remove\\(\\) expects object, mixed given\\.$#"
+			count: 2
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$lastModified of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setLastModified\\(\\) expects DateTime\\|null, DateTimeImmutable\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$metadata of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getType\\(\\) expects Sulu\\\\Component\\\\Content\\\\Metadata\\\\StructureMetadata, Sulu\\\\Component\\\\Content\\\\Metadata\\\\StructureMetadata\\|null given\\.$#"
+			count: 2
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$published of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setPublished\\(\\) expects DateTime\\|null, DateTimeImmutable\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$routePath of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setRoutePath\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$structure of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getContentFields\\(\\) expects Sulu\\\\Component\\\\Content\\\\Metadata\\\\StructureMetadata, Sulu\\\\Component\\\\Content\\\\Metadata\\\\StructureMetadata\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$structureType of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setStructureType\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$teaserDescription of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setTeaserDescription\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$title of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setTitle\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$uuid of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\:\\:setUuid\\(\\) expects string, int\\|string given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$uuid of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:findArticleDimension\\(\\) expects string, int\\|string given\\.$#"
+			count: 2
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#1 \\$uuid of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:getViewDocumentId\\(\\) expects string, int\\|string given\\.$#"
+			count: 2
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, mixed given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#2 \\$article of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:dispatchIndexEvent\\(\\) expects Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface, Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface\\|null given\\.$#"
+			count: 2
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:createOrUpdateArticle\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:findViewDocument\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of class ONGR\\\\ElasticsearchDSL\\\\Query\\\\TermLevel\\\\TermQuery constructor expects bool\\|float\\|int\\|string, mixed given\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\ArticleIndexer\\:\\:\\$typeConfiguration type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/ArticleIndexer.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\DocumentFactory\\:\\:__construct\\(\\) has parameter \\$documents with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/DocumentFactory.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\DocumentFactory\\:\\:create\\(\\) should return Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\ArticleViewDocumentInterface but returns object\\.$#"
+			count: 1
+			path: Document/Index/DocumentFactory.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\DocumentFactory\\:\\:\\$documents type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/DocumentFactory.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Cannot access offset 'id' on mixed\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Cannot access offset 'key' on mixed\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Cannot access offset 'keyword' on mixed\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Cannot access offset 'name' on mixed\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\Factory\\\\CategoryCollectionFactory\\:\\:__construct\\(\\) has parameter \\$categoryRepository with generic class Doctrine\\\\ORM\\\\EntityRepository but does not specify its types\\: T$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\CategoryViewObject\\:\\:\\$key \\(string\\) does not accept mixed\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\CategoryViewObject\\:\\:\\$keywords \\(array\\<string\\>\\) does not accept array\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\CategoryViewObject\\:\\:\\$name \\(string\\) does not accept mixed\\.$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\Factory\\\\CategoryCollectionFactory\\:\\:\\$categoryRepository with generic class Doctrine\\\\ORM\\\\EntityRepository does not specify its types\\: T$#"
+			count: 1
+			path: Document/Index/Factory/CategoryCollectionFactory.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\Factory\\\\ExcerptFactory\\:\\:create\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/Factory/ExcerptFactory.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\Factory\\\\MediaCollectionFactory\\:\\:create\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/Factory/MediaCollectionFactory.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\Factory\\\\SegmentCollectionFactory\\:\\:create\\(\\) has parameter \\$segments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/Factory/SegmentCollectionFactory.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\Factory\\\\SeoFactory\\:\\:create\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Index/Factory/SeoFactory.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Index\\\\Factory\\\\TagCollectionFactory\\:\\:create\\(\\) should return ONGR\\\\ElasticsearchBundle\\\\Collection\\\\Collection but returns null\\.$#"
+			count: 1
+			path: Document/Index/Factory/TagCollectionFactory.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: Document/Index/Factory/TagCollectionFactory.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\LocalizationStateViewObject\\:\\:\\$locale \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: Document/LocalizationStateViewObject.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\LocalizationStateViewObject\\:\\:\\$state \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: Document/LocalizationStateViewObject.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\MediaViewObject\\:\\:getThumbnails\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/MediaViewObject.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\MediaViewObject\\:\\:getThumbnails\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: Document/MediaViewObject.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\MediaViewObject\\:\\:\\$copyright \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: Document/MediaViewObject.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\MediaViewObject\\:\\:\\$formats \\(string\\) does not accept string\\|false\\.$#"
+			count: 1
+			path: Document/MediaViewObject.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\MediaViewObject\\:\\:\\$title \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: Document/MediaViewObject.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Repository\\\\ArticleViewDocumentRepository\\:\\:__construct\\(\\) has parameter \\$searchFields with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Repository\\\\ArticleViewDocumentRepository\\:\\:createSearch\\(\\) has parameter \\$types with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Repository\\\\ArticleViewDocumentRepository\\:\\:findRecent\\(\\) has parameter \\$types with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Repository\\\\ArticleViewDocumentRepository\\:\\:findSimilar\\(\\) has parameter \\$types with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Repository\\\\ArticleViewDocumentRepository\\:\\:getViewDocumentIds\\(\\) has parameter \\$uuids with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Repository\\\\ArticleViewDocumentRepository\\:\\:getViewDocumentIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Parameter \\#1 \\$like of class ONGR\\\\ElasticsearchDSL\\\\Query\\\\Specialized\\\\MoreLikeThisQuery constructor expects string, null given\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$locale of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Repository\\\\ArticleViewDocumentRepository\\:\\:getViewDocumentId\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Document\\\\Repository\\\\ArticleViewDocumentRepository\\:\\:\\$searchFields type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Document/Repository/ArticleViewDocumentRepository.php
+
+		-
+			message: "#^Call to an undefined method Sulu\\\\Article\\\\Domain\\\\Model\\\\ArticleDimensionContentInterface\\:\\:getOriginalLocale\\(\\)\\.$#"
+			count: 1
+			path: Document/Resolver/WebspaceResolver.php
+
+		-
+			message: "#^Cannot call method getKey\\(\\) on Sulu\\\\Component\\\\Webspace\\\\Webspace\\|false\\.$#"
+			count: 1
+			path: Document/Resolver/WebspaceResolver.php
+
+		-
+			message: "#^Parameter \\#1 \\$searchedLocale of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\DependencyInjection\\\\WebspaceSettingsConfigurationResolver\\:\\:getDefaultMainWebspaceForLocale\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: Document/Resolver/WebspaceResolver.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\AnnotationReader\\:\\:__construct\\(\\) has parameter \\$articleViewDocumentClass with no type specified\\.$#"
+			count: 1
+			path: Elasticsearch/AnnotationReader.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\AnnotationReader\\:\\:getClassAnnotation\\(\\) has parameter \\$class with generic class ReflectionClass but does not specify its types\\: T$#"
+			count: 1
+			path: Elasticsearch/AnnotationReader.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\AnnotationReader\\:\\:getClassAnnotation\\(\\) should return T\\|null but returns ONGR\\\\ElasticsearchBundle\\\\Annotation\\\\Document\\.$#"
+			count: 1
+			path: Elasticsearch/AnnotationReader.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\AnnotationReader\\:\\:getClassAnnotations\\(\\) has parameter \\$class with generic class ReflectionClass but does not specify its types\\: T$#"
+			count: 1
+			path: Elasticsearch/AnnotationReader.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\EventAwareConverter\\:\\:convertToDocument\\(\\) has parameter \\$rawData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Elasticsearch/EventAwareConverter.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\PostConvertToDocumentEvent\\:\\:__construct\\(\\) has parameter \\$document with no type specified\\.$#"
+			count: 1
+			path: Elasticsearch/PostConvertToDocumentEvent.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\PostConvertToDocumentEvent\\:\\:__construct\\(\\) has parameter \\$rawData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Elasticsearch/PostConvertToDocumentEvent.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\PostConvertToDocumentEvent\\:\\:getRawData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Elasticsearch/PostConvertToDocumentEvent.php
+
+		-
+			message: "#^Property Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Elasticsearch\\\\PostConvertToDocumentEvent\\:\\:\\$rawData type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Elasticsearch/PostConvertToDocumentEvent.php
+
+		-
+			message: "#^Call to method getStructureType\\(\\) on an unknown class Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleDocument\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Call to method getUuid\\(\\) on an unknown class Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleDocument\\.$#"
+			count: 2
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Cannot call method getAttribute\\(\\) on mixed\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Cannot call method getLocale\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Class Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleDocument not found\\.$#"
+			count: 2
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleViewDocumentTwigExtension\\:\\:getTagAttribute\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleViewDocumentTwigExtension\\:\\:getTagAttribute\\(\\) has parameter \\$default with no type specified\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleViewDocumentTwigExtension\\:\\:getType\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleViewDocumentTwigExtension\\:\\:loadRecent\\(\\) has parameter \\$types with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleViewDocumentTwigExtension\\:\\:loadSimilar\\(\\) has parameter \\$types with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$metadata of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleViewDocumentTwigExtension\\:\\:getType\\(\\) expects Sulu\\\\Component\\\\Content\\\\Metadata\\\\StructureMetadata, Sulu\\\\Component\\\\Content\\\\Metadata\\\\StructureMetadata\\|null given\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$request of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleViewDocumentTwigExtension\\:\\:getWebspaceKey\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\Request, Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null given\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
+
+		-
+			message: "#^Parameter \\$articleDocument of method Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleViewDocumentTwigExtension\\:\\:getArticleType\\(\\) has invalid type Sulu\\\\Bundle\\\\ArticleViewDocumentBundle\\\\Twig\\\\ArticleDocument\\.$#"
+			count: 1
+			path: Twig/ArticleViewDocumentTwigExtension.php
