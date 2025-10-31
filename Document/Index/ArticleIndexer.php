@@ -113,7 +113,7 @@ class ArticleIndexer implements IndexerInterface
     protected $contentManager;
 
     public function __construct(
-        StructureMetadataFactoryInterface $structureMetadataFactory,
+        ?StructureMetadataFactoryInterface $structureMetadataFactory,
         UserManager $userManager,
         ContactRepository $contactRepository,
         DocumentFactoryInterface $documentFactory,
@@ -171,10 +171,15 @@ class ArticleIndexer implements IndexerInterface
             return null;
         }
 
-        $structureMetadata = $this->structureMetadataFactory->getStructureMetadata(
-            'article',
-            $document->getTemplateKey(),
-        );
+        // SULU 3.0 MIGRATION: StructureMetadataFactory is not available in Sulu 3.0
+        // Article indexing will work with limited functionality until proper migration
+        $structureMetadata = null;
+        if ($this->structureMetadataFactory) {
+            $structureMetadata = $this->structureMetadataFactory->getStructureMetadata(
+                'article',
+                $document->getTemplateKey(),
+            );
+        }
 
         $article->setTitle($document->getTitle());
         $article->setRoutePath($document->getTemplateData()['url']);
@@ -202,14 +207,16 @@ class ArticleIndexer implements IndexerInterface
         $article->setCreatorFullName($creator?->getFullName());
         $article->setCreatorContactId($creator?->getContact()->getId());
 
-        $article->setType($this->getType($structureMetadata));
+        // SULU 3.0 MIGRATION: Use fallback when structure metadata is not available
+        $type = $structureMetadata ? $this->getType($structureMetadata) : 'default';
+        $article->setType($type);
         $article->setStructureType($document->getTemplateKey());
 
         $isPublished = $this->isPublished($document, $localizationState);
 
         $article->setPublished($isPublished ? $document->getWorkflowPublished() : null);
         $article->setPublishedState($isPublished);
-        $article->setTypeTranslation($this->getTypeTranslation($this->getType($structureMetadata)));
+        $article->setTypeTranslation($this->getTypeTranslation($type));
         $article->setLocalizationState(
             new LocalizationStateViewObject(
                 $localizationState,
@@ -238,19 +245,23 @@ class ArticleIndexer implements IndexerInterface
         $article->setExcerpt($this->excerptFactory->create($extensions['excerpt'], $locale));
         $article->setSeo($this->seoFactory->create($extensions['seo']));
 
-        if ($structureMetadata->hasPropertyWithTagName('sulu.teaser.description')) {
-            $descriptionProperty = $structureMetadata->getPropertyByTagName('sulu.teaser.description');
-            $article->setTeaserDescription($document->getTemplateData()[$descriptionProperty->getName()]);
-        }
-        if ($structureMetadata->hasPropertyWithTagName('sulu.teaser.media')) {
-            $mediaProperty = $structureMetadata->getPropertyByTagName('sulu.teaser.media');
-            $mediaData = $document->getTemplateData()[$mediaProperty->getName()];
-            if (null !== $mediaData && \array_key_exists('ids', $mediaData)) {
-                $article->setTeaserMediaId(\reset($mediaData['ids']) ?: null);
+        // SULU 3.0 MIGRATION: Skip teaser properties when structure metadata is not available
+        if ($structureMetadata) {
+            if ($structureMetadata->hasPropertyWithTagName('sulu.teaser.description')) {
+                $descriptionProperty = $structureMetadata->getPropertyByTagName('sulu.teaser.description');
+                $article->setTeaserDescription($document->getTemplateData()[$descriptionProperty->getName()]);
+            }
+            if ($structureMetadata->hasPropertyWithTagName('sulu.teaser.media')) {
+                $mediaProperty = $structureMetadata->getPropertyByTagName('sulu.teaser.media');
+                $mediaData = $document->getTemplateData()[$mediaProperty->getName()];
+                if (null !== $mediaData && \array_key_exists('ids', $mediaData)) {
+                    $article->setTeaserMediaId(\reset($mediaData['ids']) ?: null);
+                }
             }
         }
 
-        $article->setContentFields($this->getContentFields($structureMetadata, $document));
+        // SULU 3.0 MIGRATION: Pass null structure metadata to getContentFields
+        $article->setContentFields($structureMetadata ? $this->getContentFields($structureMetadata, $document) : []);
         $article->setContentData(\json_encode($document->getTemplateData()));
 
         $article->setMainWebspace($this->webspaceResolver->resolveMainWebspace($document));

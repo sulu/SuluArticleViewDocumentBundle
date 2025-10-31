@@ -40,7 +40,7 @@ class ArticleGhostIndexer extends ArticleIndexer
     protected $webspaceManager;
 
     public function __construct(
-        StructureMetadataFactoryInterface $structureMetadataFactory,
+        ?StructureMetadataFactoryInterface $structureMetadataFactory,
         UserManager $userManager,
         ContactRepository $contactRepository,
         DocumentFactoryInterface $documentFactory,
