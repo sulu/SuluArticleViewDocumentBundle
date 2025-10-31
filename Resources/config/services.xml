@@ -71,7 +71,7 @@
         <!-- Indexer Services -->
         <!-- Draft/Default indexer (used in admin context) -->
         <service id="sulu_article_view_document.document.index.article_draft_indexer" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\ArticleGhostIndexer">
-            <argument type="service" id="sulu_page.structure.factory" />
+            <argument type="service" id="sulu_page.structure.factory" on-invalid="null" />
             <argument type="service" id="sulu_security.user_manager" />
             <argument type="service" id="sulu.repository.contact" />
             <argument type="service" id="sulu_article_view_document.document.factory.document_factory" />
@@ -93,7 +93,7 @@
 
         <!-- Live indexer (used in website context) -->
         <service id="sulu_article_view_document.document.index.article_live_indexer" class="Sulu\Bundle\ArticleViewDocumentBundle\Document\Index\ArticleIndexer">
-            <argument type="service" id="sulu_page.structure.factory" />
+            <argument type="service" id="sulu_page.structure.factory" on-invalid="null" />
             <argument type="service" id="sulu_security.user_manager" />
             <argument type="service" id="sulu.repository.contact" />
             <argument type="service" id="sulu_article_view_document.document.factory.document_factory" />
@@ -113,15 +113,18 @@
         </service>
 
         <!-- Commands -->
+        <!-- Disabled for Sulu 3.0 migration - ArticleGhostIndexer requires StructureMetadataFactoryInterface -->
+        <!--
         <service id="sulu_article_view_document.command.reindex_command" class="Sulu\Bundle\ArticleViewDocumentBundle\Command\ReindexCommand">
             <argument type="service" id="sulu_core.webspace.webspace_manager" />
             <argument type="service" id="sulu_article.article_repository" />
             <argument type="service" id="sulu_content.content_manager" />
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="sulu_article_view_document.document.index.article_draft_indexer" /> <!-- Draft indexer for admin context -->
-            <argument type="service" id="sulu_article_view_document.document.index.article_live_indexer" /> <!-- Live indexer for website context -->
+            <argument type="service" id="sulu_article_view_document.document.index.article_draft_indexer" />
+            <argument type="service" id="sulu_article_view_document.document.index.article_live_indexer" />
             <argument>%sulu.context%</argument>
             <tag name="console.command" />
         </service>
+        -->
     </services>
 </container>
