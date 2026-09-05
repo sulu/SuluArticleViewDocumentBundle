@@ -95,7 +95,7 @@ class SuluArticleViewDocumentExtension extends Extension implements PrependExten
         $container->setParameter('sulu_article.search_fields', $config['search_fields']);
         $container->setParameter('sulu_article.types', $config['types']);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
+        $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.php');
     }
 }
