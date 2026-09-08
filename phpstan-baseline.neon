@@ -681,7 +681,7 @@ parameters:
 			path: Twig/ArticleViewDocumentTwigExtension.php
 
 		-
-			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			message: "#^Cannot access property \\$attributes on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
 			count: 1
 			path: Twig/ArticleViewDocumentTwigExtension.php
 

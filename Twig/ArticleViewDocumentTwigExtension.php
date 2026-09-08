@@ -103,7 +103,7 @@ class ArticleViewDocumentTwigExtension extends AbstractExtension
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
 
-        $articleDocument = $request->get('object');
+        $articleDocument = $request->attributes->get('object');
         if ($articleDocument instanceof ArticleDocument) {
             $excludeUuid = $articleDocument->getUuid();
 
@@ -146,7 +146,7 @@ class ArticleViewDocumentTwigExtension extends AbstractExtension
 
         $request = $this->requestStack->getCurrentRequest();
 
-        $articleDocument = $request->get('object');
+        $articleDocument = $request->attributes->get('object');
         if ($articleDocument instanceof ArticleDocument) {
             $uuid = $articleDocument->getUuid();
 
@@ -213,7 +213,7 @@ class ArticleViewDocumentTwigExtension extends AbstractExtension
             return null;
         }
 
-        $sulu = $request->get('_sulu');
+        $sulu = $request->attributes->get('_sulu');
         if (!$sulu) {
             return null;
         }
