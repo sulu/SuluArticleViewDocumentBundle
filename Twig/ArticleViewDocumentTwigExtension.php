@@ -144,6 +144,7 @@ class ArticleViewDocumentTwigExtension extends AbstractExtension
     ): array {
         $uuid = null;
 
+        /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
 
         $articleDocument = $request->attributes->get('object');

@@ -681,11 +681,6 @@ parameters:
 			path: Twig/ArticleViewDocumentTwigExtension.php
 
 		-
-			message: "#^Cannot access property \\$attributes on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
-			count: 1
-			path: Twig/ArticleViewDocumentTwigExtension.php
-
-		-
 			message: "#^Cannot call method getAttribute\\(\\) on mixed\\.$#"
 			count: 1
 			path: Twig/ArticleViewDocumentTwigExtension.php
